@@ -20,10 +20,10 @@ const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 
-// const mongo_url = "mongodb://127.0.0.1:27017/collage";
+//const mongo_url = "mongodb://127.0.0.1:27017/collage";
 
-const db_url=process.env.ATLASDB_URL;
-
+ const db_url=process.env.ATLASDB_URL;
+ 
 main().then(() => {
     console.log("Connected to database");
 }).catch((err) => {
@@ -44,14 +44,14 @@ app.use(express.static(path.join(__dirname,"public")));
 const store=MongoStore.create({
     mongoUrl:db_url,
     crypto:{
-        secret:process.env.SECRET
+        ssecret: process.env.SECRET || "mysupersecretstring",
     },
     touchAfter: 24 * 3600,
 });
 
-store.on("error",()=>{
-    console.log("MONGO ATALS ",err)
-})
+store.on("error", (err) => { 
+    console.error("Session store error", err); 
+});
 
 const sessionOption={
     store,
@@ -87,15 +87,6 @@ app.use((req,res,next)=>{
     next();
 })
 
-// app.get("/demouser", async (req, res) => {
-//     let fakeUser = new User({
-//         email: "ranja@gmail.com",
-//         username: "harendra-ranja",
-//     });
-
-//     let userResister=await User.register(fakeUser, "helloword");
-//     res.send(userResister)
-// });
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
