@@ -1,5 +1,5 @@
-if(process.env.NODE_ENV!="production"){
-    require("dotenv").config()
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
 
 const express = require("express");
@@ -23,7 +23,7 @@ const userRouter=require("./routes/user.js");
 //const mongo_url = "mongodb://127.0.0.1:27017/collage";
 
  const db_url=process.env.ATLASDB_URL;
- 
+
 main().then(() => {
     console.log("Connected to database");
 }).catch((err) => {
@@ -41,17 +41,18 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"public")));
 
-const store=MongoStore.create({
-    mongoUrl:db_url,
-    crypto:{
-        ssecret: process.env.SECRET || "mysupersecretstring",
+const store = MongoStore.create({
+    mongoUrl: db_url,
+    crypto: {
+        secret: process.env.SECRET,
     },
-    touchAfter: 24 * 3600,
+     touchAfter: 24 * 3600, 
 });
 
-store.on("error", (err) => { 
+store.on("error", err => { 
     console.error("Session store error", err); 
 });
+
 
 const sessionOption={
     store,
@@ -80,12 +81,15 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => { 
+    console.log('Current user:', req.user);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currentUser=req.user;
+    res.locals.currentUser = req.user ;
     next();
-})
+});
+
+
 
 
 app.use("/listings",listingRouter);
@@ -101,6 +105,8 @@ app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong" } = err;
     res.status(statusCode).render("error", { err: { statusCode, message } });
 });
+console.log('MongoDB URL:', db_url);
+console.log('Session Secret:', process.env.SECRET || "mysupersecretstring");
 
 app.listen(8080, () => {
     console.log(`Port is started on 8080`);
