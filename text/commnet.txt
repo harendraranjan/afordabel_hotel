@@ -1,0 +1,28 @@
+// app.get('/testListing', async (req, res) => {
+//     let sampleListing = new Listing({
+//         title: "Harendra ranjan",
+//         description: "This is first time when i add this",
+//         price: 12000,
+//         Location: 'Noida', // Enclosed Noida in quotes
+//         country: 'India' // Enclosed India in quotes and corrected 'contry' to 'country'
+//     });
+//     await sampleListing.save();
+//     console.log("Sample was saved");
+//     res.send("Successful testing");
+// });
+
+<!-- <h3>Edit new list</h3>
+    <form  method="post" action="/listings/<%= listing._id %>?_method=PUT">
+        <input type="text" name="listing[title]" value="<%=listing.title  %> " ><br><br>
+        <textarea name="listing[description]"><%= listing.description %></textarea ><br><br>
+       <input type="text" name="listing[image]" value="<%=listing.image %> " ><br><br>
+        <input type="text" name="listing[price]" value="<%=listing.price%>" ><br><br>
+        <input type="text" name="listing[country]" value="<%=listing.country  %> "><br><br>
+        <input type="text" name="listing[location]" value="<%=listing.location  %> " ><br><br>
+        <button>add</button>
+    </form> -->
+
+
+    
+    <% if(currentUser && currentUser._id.equals(listing.owner._id)){ %>
+       <!-- <% } %> -->
