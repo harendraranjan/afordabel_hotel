@@ -22,7 +22,7 @@ const userRouter=require("./routes/user.js");
 
 //const mongo_url = "mongodb://127.0.0.1:27017/collage";
 
- const db_url=process.env.ATLASDB_URL;
+const db_url=process.env.ATLASDB_URL;
 
 main().then(() => {
     console.log("Connected to database");
@@ -46,13 +46,12 @@ const store = MongoStore.create({
     crypto: {
         secret: process.env.SECRET,
     },
-     touchAfter: 24 * 3600, 
+    touchAfter: 24 * 3600, 
 });
 
 store.on("error", err => { 
     console.error("Session store error", err); 
 });
-
 
 const sessionOption={
     store,
@@ -67,8 +66,6 @@ const sessionOption={
     }
 }
 
-
-
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -81,16 +78,14 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 
 
-app.use((req, res, next) => { 
-    console.log('Current user:', req.user);
+app.use((req, res, next) => {
+    console.log('Is Authenticated:', req.isAuthenticated());
+    console.log('Current User:', req.user);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currentUser = req.user ;
+    res.locals.currentUser = req.user;
     next();
 });
-
-
-
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
