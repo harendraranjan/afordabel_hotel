@@ -12,7 +12,7 @@ body{
     height: 5rem;
 }
 .fa-compass{
-    color: brown;
+    color: #fe4249;
     font-size: 2rem;
 }
 .nav-link{
@@ -68,7 +68,7 @@ body{
     text-decoration: none;
 }
 .add-btn{
-    background-color:  brown;
+    background-color:  #f77009;
     border:none ;
 }
 /* show page */
@@ -82,4 +82,24 @@ body{
     font-size: 1.5rem; /* Set the font size to 2rem for both buttons */
 }
 
+.search-btn{
+    border-radius: 25px;
+    background-color: #fe4249;
+}
+.search-btn:hover{
+    background-color: #fe4249;
+    color: #fff;
+}
+.search-btn i{
+    display: inline;
+    margin-right: .07rem;
+}
+.search-inp{
+    border-radius: 25px;
+    padding: .3rem 3rem .3rem 3rem;
+    font-size: 1rem;
+}
+.tax-info{
+    display: none;
+}
 

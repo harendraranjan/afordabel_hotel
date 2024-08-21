@@ -20,7 +20,7 @@ const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 
-//const mongo_url = "mongodb://127.0.0.1:27017/collage";
+const mongo_url = "mongodb://127.0.0.1:27017/collage";
 
 const db_url=process.env.ATLASDB_URL;
 
@@ -31,7 +31,7 @@ main().then(() => {
 });
 
 async function main() {
-    await mongoose.connect(db_url);
+    await mongoose.connect(mongo_url);
 }
 
 app.set("view engine", "ejs");
@@ -79,8 +79,6 @@ passport.deserializeUser(User.deserializeUser())
 
 
 app.use((req, res, next) => {
-    console.log('Is Authenticated:', req.isAuthenticated());
-    console.log('Current User:', req.user);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currentUser = req.user;
@@ -100,8 +98,6 @@ app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong" } = err;
     res.status(statusCode).render("error", { err: { statusCode, message } });
 });
-console.log('MongoDB URL:', db_url);
-console.log('Session Secret:', process.env.SECRET || "mysupersecretstring");
 
 app.listen(8080, () => {
     console.log(`Port is started on 8080`);

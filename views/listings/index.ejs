@@ -4,66 +4,79 @@
         margin-top: 1rem;
         display: flex;
         text-align: center;
+        align-items: center;
     }
     .filter{
         margin-left: 1rem;
     }
+    .tax-toggel{
+        position: absolute;
+        right: 1rem;
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 3.1rem;
+        padding: 1rem;
+        margin-right: 4px;
+        display: flex;
+        align-items: center;
+    }
 
 </style>
-    <div id="filter">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-sun"></i></div>
-            <p>Mountain</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Best swimming</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-wheat-awn"></i></div>
-            <p>Farming</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="tax-toggel">
-            <div class="form-check form-check-reverse form-switch">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Total After Tex</label>
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-            </div>
+
+<div id="filter">
+    <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain-sun"></i></div>
+        <p>Mountain</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Best swimming</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-wheat-awn"></i></div>
+        <p>Farming</p>
+    </div>
+    <div class="tax-toggel">
+        <div class="form-check form-check-reverse form-switch">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Total After Taxes</label>
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
         </div>
     </div>
-    
-    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm mt-3">
-        <% for(let listing of allListing){ %>
-            <a href="/listings/<%= listing._id %>" class="card-anker">
-                <div class="card col listing-card">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height: 20rem;">
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b><%= listing.title %></b><br>
-                            <% if (listing.price !== null && listing.price !== undefined) { %>
-                                &#8377 <%= listing.price.toLocaleString("en-In") %>
-                            <% } else { %>
-                                Price not available
-                            <% } %>
-                        </p>
-                    </div>
+</div>
+
+
+<div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm mt-3">
+    <% for(let listing of allListing){ %>
+        <a href="/listings/<%= listing._id %>" class="card-anker">
+            <div class="card col listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="..." style="height: 20rem;">
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b><br>
+                        &#8377 <%= listing.price.toLocaleString("en-In") %>
+                        <i class="tax-info" &nbsp; &nbsp;>+18% GST</i>
+                    </p>
                 </div>
-            </a>
-        <% } %>
-    </div>
+            </div>
+        </a>
+    <% } %>
+</div>
+<script>
+    let texes=document.getElementById("flexSwitchCheckDefault");
+    texes.addEventListener("click",()=>{
+        let taxInfo=document.getElementsByClassName("tax-info")
+        for(taxinfo of taxInfo){
+            if(taxinfo.style.display!="inline"){
+                taxinfo.style.display="inline";
+            }else{
+                taxinfo.style.display="none";
+            }
+            
+        }
+    })
+</script>
 
