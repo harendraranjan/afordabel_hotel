@@ -103,3 +103,23 @@ body{
     display: none;
 }
 
+#filter{
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+}
+.filter{
+    margin-left: 1rem;
+}
+.tax-toggel{
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3.1rem;
+    padding: 1rem;
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}

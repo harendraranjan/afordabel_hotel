@@ -20,9 +20,9 @@ const listingRouter=require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 
-const mongo_url = "mongodb://127.0.0.1:27017/collage";
+//const mongo_url = "mongodb://127.0.0.1:27017/collage";
 
-const db_url=process.env.ATLASDB_URL;
+ const db_url=process.env.ATLASDB_URL;
 
 main().then(() => {
     console.log("Connected to database");
@@ -52,6 +52,7 @@ const store = MongoStore.create({
 store.on("error", err => { 
     console.error("Session store error", err); 
 });
+
 
 const sessionOption={
     store,
